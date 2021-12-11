@@ -6,9 +6,5 @@ export const server: Server = new Server();
 server.listen();
 
 server.app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-    
-server.app.get('*', (req, res) =>{
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.redirect('/api-docs');
 });
