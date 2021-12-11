@@ -6,7 +6,7 @@
   "scripts": {
     "start:prod": "tsoa spec-and-routes && tsc && node ./dist/index.js",
     "start:dev": "tsoa spec-and-routes && nodemon ./src/index.ts",
-    "build": "npm run clean && npm run swagger && tsc",
+    "build": "tsoa spec-and-routes && tsc && node ./dist/index.js",
     "clean": "rimraf dist/*",
     "tsoa": "tsoa spec-and-routes"
   },
