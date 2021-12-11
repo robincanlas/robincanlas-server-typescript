@@ -1,0 +1,47 @@
+{
+  "name": "node-typescript",
+  "version": "1.0.0",
+  "description": "nodejs using typescript",
+  "main": "app.js",
+  "scripts": {
+    "start:prod": "node ./dist/index",
+    "start:dev": "tsoa spec-and-routes && nodemon ./src/index.ts",
+    "build": "npm run clean && npm run swagger && tsc",
+    "clean": "rimraf dist/*",
+    "swagger": "node swagger.js",
+    "tsoa": "tsoa spec-and-routes"
+  },
+  "keywords": [
+    "microservice",
+    "cashdesk",
+    "reports",
+    "services",
+    "typescript",
+    "nodejs"
+  ],
+  "author": "Kristoffer Canlas",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.1.1",
+    "swagger-ui-express": "^4.2.0",
+    "tsoa": "^3.14.1"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^16.11.4",
+    "cpy-cli": "^3.1.1",
+    "nodemon": "^2.0.14",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  }
+}
