@@ -15,6 +15,12 @@ export namespace Work {
     year: number;
     index: number;
   }
+
+  export interface GetByIndex {
+    current: Work.Get;
+    previous: string | null;
+    next: string | null;
+  }
 }
 
 export const WorkSchema = new Schema<Work.Get>({

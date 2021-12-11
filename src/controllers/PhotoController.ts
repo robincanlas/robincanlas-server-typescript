@@ -9,7 +9,7 @@ import { BaseController } from './';
 import { server } from '..';
 import { Photo } from '../models';
 
-@Tags('Photos')
+@Tags('Photos section')
 @Route('photo')
 export class PhotoController extends BaseController {
   
