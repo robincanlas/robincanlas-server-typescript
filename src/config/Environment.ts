@@ -5,7 +5,7 @@ dotenv.config();
 
 export const appConfig = {
   environment: process.env.NODE_ENV,
-  port: +process.env.SERVER_PORT,
+  port: process.env.SERVER_PORT,
   swaggerEnable: process.env.SWAGGER_ENABLE,
   masterPassword: process.env.MASTER_PASSWORD,
   mongoDBConnection: process.env.MONGODB_CONNECTION,

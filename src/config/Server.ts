@@ -10,7 +10,7 @@ import { appConfig, ENV } from './Environment';
 
 export class Server {
   public app: express.Express = express();
-  private readonly port: number = appConfig.environment === ENV.DEV ? appConfig.port : +process.env.PORT;
+  private readonly port: string = appConfig.port;
   public mongoDbService: MongoDbService = new MongoDbService();
   constructor() {
     this.app.use(cors({
@@ -37,10 +37,10 @@ export class Server {
     }
   }
 
-  public async listen(port: number = this.port) {
+  public async listen(port: string = this.port) {
     process.on('uncaughtException', this.criticalErrorHandler);
     process.on('unhandledRejection', this.criticalErrorHandler);
-    const listen = this.app.listen(this.port, async () => {
+    const listen = this.app.listen(process.env.PORT || this.port, async () => {
       const dbConnection: string = await this.mongoDbService.connect();
       console.log(dbConnection);
       console.log(`Listening on port ${this.port}`);
