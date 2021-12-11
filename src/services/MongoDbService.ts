@@ -56,4 +56,24 @@ export class MongoDbService {
   public async getInformation(): Promise<Information.Get[]> {
     return await InformationModel.find({}, {_id: 0}).exec();
   }
+
+  public async deleteAllPhotos(): Promise<boolean> {
+    return await PhotoModel.deleteMany({})
+    .then(() => {
+      return true;
+    }).catch(error => {
+      console.warn(error);
+      return false;
+    });
+  }
+
+  public async insertManyPhotos(photos: Photo.GetAllFlickr[]): Promise<boolean> {
+    return await PhotoModel.insertMany(photos)
+    .then(() => {
+      return true;
+    }).catch(error => {
+      console.warn(error);
+      return false;
+    });
+  }
 }
