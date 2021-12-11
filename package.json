@@ -4,9 +4,9 @@
   "description": "nodejs using typescript",
   "main": "app.js",
   "scripts": {
-    "start:prod": "tsoa spec-and-routes && tsc && node ./dist/index.js",
+    "start:prod": "node ./dist/index.js",
     "start:dev": "tsoa spec-and-routes && nodemon ./src/index.ts",
-    "build": "tsoa spec-and-routes && tsc && node ./dist/index.js",
+    "build": "tsoa spec-and-routes && tsc",
     "clean": "rimraf dist/*",
     "tsoa": "tsoa spec-and-routes"
   },
@@ -42,5 +42,8 @@
     "rimraf": "^3.0.2",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }

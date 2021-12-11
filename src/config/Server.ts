@@ -40,7 +40,7 @@ export class Server {
   public async listen(port: string = this.port) {
     process.on('uncaughtException', this.criticalErrorHandler);
     process.on('unhandledRejection', this.criticalErrorHandler);
-    const listen = this.app.listen(process.env.PORT || this.port, async () => {
+    const listen = this.app.listen(this.port, async () => {
       const dbConnection: string = await this.mongoDbService.connect();
       console.log(dbConnection);
       console.log(`Listening on port ${this.port}`);
