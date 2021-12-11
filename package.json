@@ -4,11 +4,10 @@
   "description": "nodejs using typescript",
   "main": "app.js",
   "scripts": {
-    "start:prod": "node ./dist/index",
+    "start:prod": "tsoa spec-and-routes && tsc && node ./dist/index.js",
     "start:dev": "tsoa spec-and-routes && nodemon ./src/index.ts",
     "build": "npm run clean && npm run swagger && tsc",
     "clean": "rimraf dist/*",
-    "swagger": "node swagger.js",
     "tsoa": "tsoa spec-and-routes"
   },
   "keywords": [

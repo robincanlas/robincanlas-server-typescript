@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { appConfig } from '../constants';
+import { appConfig } from '../config/Environment';
 import { 
   Information,
   InformationModel,

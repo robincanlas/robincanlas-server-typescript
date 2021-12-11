@@ -4,12 +4,13 @@ import cors from 'cors';
 import * as swaggerUi from 'swagger-ui-express';
 import * as swaggerDocument from '../build/swagger.json';
 import { RegisterRoutes } from '../build/routes';
-import { appConfig, allowedOrigins, SWAGGER } from '../constants';
+import { allowedOrigins, SWAGGER } from '../constants';
 import { MongoDbService } from '../services/MongoDbService';
+import { appConfig, ENV } from './Environment';
 
 export class Server {
   public app: express.Express = express();
-  private readonly port: number = appConfig.port;
+  private readonly port: number = appConfig.environment === ENV.DEV ? appConfig.port : +process.env.PORT;
   public mongoDbService: MongoDbService = new MongoDbService();
   constructor() {
     this.app.use(cors({

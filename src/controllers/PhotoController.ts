@@ -12,7 +12,7 @@ import { server } from '..';
 import { Photo, Validation } from '../models';
 import { CloudinaryService, FlickrService, MongoDbService } from '../services';
 import { Flickr, Cloudinary } from '../functions';
-import { appConfig } from '../constants';
+import { appConfig } from '../config/Environment';
 
 @Tags('Photos section')
 @Route('photo')

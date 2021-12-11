@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { appConfig } from '../constants';
+import { appConfig } from '../config/Environment';
 import { Photo } from '../models';
 
 export class CloudinaryService {
