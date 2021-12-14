@@ -5,8 +5,14 @@
 
 # Node artifact files
 node_modules/
+
+# Build files
 dist/
 src/build
+
+# Environments
+.env
+env/
 
 # Compiled Java class files
 *.class
