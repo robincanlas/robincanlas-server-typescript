@@ -6,7 +6,12 @@
   ],
   "spec": {
     "outputDirectory": "src/build",
-    "specVersion": 3
+    "specVersion": 3,
+    "name": "Backend of portfolio",
+    "description": "Service that will handle all the api for the portfolio",
+    "version": "1.0.0",
+    "tags": "microservice, portfolio, projects",
+    "contact": { "email": "kristofferrobincanlas@gmail.com", "name":  "Kristoffer Robin Canlas", "url": "https://kristofferrobincanlas.com" }
   },
   "routes": {
     "routesDir": "src/build"
