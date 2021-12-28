@@ -10,7 +10,7 @@ import { BaseController } from './';
 import { server } from '..';
 import { Work } from '../models';
 
-@Tags('Work section')
+@Tags('Work service')
 @Route('work')
 export class WorkController extends BaseController {
 

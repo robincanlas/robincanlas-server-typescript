@@ -19,5 +19,9 @@ export const appConfig = {
   },
   cloudinaryApi: {
     host: process.env.CLOUDINARY_API
+  },
+  positionStackApi: {
+    host: process.env.POSITION_STACK_API,
+    access_key: process.env.POSITION_STACK_API_ACCESS_KEY
   }
 };

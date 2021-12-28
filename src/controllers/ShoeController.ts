@@ -9,7 +9,7 @@ import { server } from '..';
 import { Shoe } from '../models';
 import { BaseController } from './';
 
-@Tags('Shoe section')
+@Tags('Shoe service')
 @Route('shoe')
 export class ShoeController extends BaseController {
 

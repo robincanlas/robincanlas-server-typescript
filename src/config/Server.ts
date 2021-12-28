@@ -6,7 +6,7 @@ import * as swaggerDocument from '../build/swagger.json';
 import { RegisterRoutes } from '../build/routes';
 import { allowedOrigins, SWAGGER } from '../constants';
 import { MongoDbService } from '../services/MongoDbService';
-import { appConfig, ENV } from './Environment';
+import { appConfig } from './Environment';
 
 export class Server {
   public app: express.Express = express();
@@ -15,7 +15,6 @@ export class Server {
   constructor() {
     this.app.use(cors({
       credentials: true,
-      // origin: true,
       origin: allowedOrigins,
       methods: 'POST, PUT, GET, PATCH, OPTIONS, DELETE',
       allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization, apikey, x-access-token',
@@ -23,15 +22,8 @@ export class Server {
     this.app.use(cookieParser());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
-    // this.app.use(morgan('dev', { skip: () => !Logger.shouldLog }));
-    // controller.register(this.app);
     RegisterRoutes(this.app);
 
-    // For now we only forwards service status code.
-    // TODO: Spike, Is there a way this could be useful to handle our own errors.
-  //   this.app.use(ErrorHandler.handleError);
-
-    // const swaggerDocument = require('../swagger.json');
     if (appConfig.swaggerEnable === SWAGGER.ENABLE) {
       this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     }

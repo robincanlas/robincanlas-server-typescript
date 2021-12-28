@@ -14,7 +14,7 @@ import { CloudinaryService, FlickrService, MongoDbService } from '../services';
 import { Flickr, Cloudinary } from '../functions';
 import { appConfig } from '../config/Environment';
 
-@Tags('Photos section')
+@Tags('Photos service')
 @Route('photo')
 export class PhotoController extends BaseController {
   private flickrService: FlickrService = new FlickrService();

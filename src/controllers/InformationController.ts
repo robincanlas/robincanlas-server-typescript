@@ -9,7 +9,7 @@ import { BaseController } from './';
 import { server } from '..';
 import { Information } from '../models';
 
-@Tags('Information section')
+@Tags('Information service')
 @Route('information')
 export class InformationController extends BaseController {
   
