@@ -7,7 +7,7 @@
   "spec": {
     "outputDirectory": "src/build",
     "specVersion": 3,
-    "name": "Backend of portfolio",
+    "name": "Portfolio Service",
     "description": "Service that will handle all the api for the portfolio",
     "version": "1.0.0",
     "tags": ["microservice", "portfolio", "projects"],
