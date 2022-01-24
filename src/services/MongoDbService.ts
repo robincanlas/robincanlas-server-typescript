@@ -44,6 +44,26 @@ export class MongoDbService {
     return await WorkModel.findOne({ 'id': id }, { '_id': 0}).exec();
   }
 
+  public async insertManyWorks(works: Work.Get[]): Promise<boolean> {
+    return await WorkModel.insertMany(works)
+    .then(() => {
+      return true;
+    }).catch(error => {
+      console.warn(error);
+      return false;
+    });
+  }
+
+  public async deleteAllWorks(): Promise<boolean> {
+    return await WorkModel.deleteMany({})
+    .then(() => {
+      return true;
+    }).catch(error => {
+      console.warn(error);
+      return false;
+    });
+  }
+
   public async getWorkByIndex(lessOrGreat: string, index: number, sortBy: number): Promise<Work.Get[]> {
     // tslint:disable-next-line: max-line-length
     return await WorkModel.find({ 'index': { [lessOrGreat]: index }, 'show': true }, { '_id': 0 }).sort({ 'index': sortBy }).limit(1).exec();

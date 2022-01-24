@@ -8,7 +8,7 @@ import {
 } from 'tsoa';
 import { BaseController } from './';
 import { PositionStackService } from '../services';
-import { Country } from '../models/country';
+import { Country } from '../models';
 
 @Tags('Country service')
 @Route('country')

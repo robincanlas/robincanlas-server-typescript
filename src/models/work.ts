@@ -14,12 +14,20 @@ export namespace Work {
     show: boolean;
     year: number;
     index: number;
+    sharp_img: string;
+    code: string | null;
+    site: string | null;
   }
 
   export interface GetByIndex {
     current: Work.Get;
     previous: string | null;
     next: string | null;
+  }
+
+  export interface Update {
+    works: Work.Get[];
+    master_password: string;
   }
 }
 
@@ -35,7 +43,10 @@ export const WorkSchema = new Schema<Work.Get>({
   technologies: Array,
   show: Boolean,
   year: Number,
-  index: Number
+  index: Number,
+  sharp_img: String,
+  code: String,
+  site: String
 }, {
   collection: 'works'
 });

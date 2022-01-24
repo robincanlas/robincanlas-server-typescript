@@ -5,10 +5,15 @@ import {
   Response,
   Tags,
   Path,
+  Put,
+  Body,
+  Post,
+  Hidden,
 } from 'tsoa';
 import { BaseController } from './';
 import { server } from '..';
 import { Work } from '../models';
+import { appConfig } from '../config/Environment';
 
 @Tags('Work service')
 @Route('work')
@@ -20,7 +25,8 @@ export class WorkController extends BaseController {
   @Get()
   public async getWork(): Promise<Work.Get[]> {
     try {
-      return server.mongoDbService.getWorks();      
+      const works: Work.Get[] = await server.mongoDbService.getWorks();
+      return works.sort((a, b) => b.index - a.index);
     } catch (error) {
       console.warn('error fetching work', error);
       throw {
@@ -39,8 +45,8 @@ export class WorkController extends BaseController {
     const current: Work.Get = await server.mongoDbService.getWorkById(id);
     if (current) {
       const [previous, next] = await Promise.all([
-        server.mongoDbService.getWorkByIndex('$lt', current.index, -1),
-        server.mongoDbService.getWorkByIndex('$gt', current.index, 1)
+        server.mongoDbService.getWorkByIndex('$gt', current.index, 1),
+        server.mongoDbService.getWorkByIndex('$lt', current.index, -1)
       ]);
       const obj: Work.GetByIndex = {
         'current': current,
@@ -50,6 +56,51 @@ export class WorkController extends BaseController {
       return obj;
     } else {
       return current;
+    }
+  }
+  
+  @Hidden()
+  @SuccessResponse(201, 'Success')
+  @Response(400, 'Bad Request')
+  @Response(403, 'Forbidden')
+  @Response(500, 'Service Error')
+  @Put()
+  public async insertWorks(@Body() body: Work.Update): Promise<boolean> {
+    try {
+      if (body.master_password === appConfig.masterPassword) {
+        await server.mongoDbService.deleteAllWorks();
+        await server.mongoDbService.insertManyWorks(body.works);
+  
+        return true;
+      } else {
+        this.setStatus(403);
+      }
+  
+      return false; 
+    } catch (error) {
+      return error;
+    }
+  }
+
+  @Hidden()
+  @SuccessResponse(201, 'Success')
+  @Response(400, 'Bad Request')
+  @Response(403, 'Forbidden')
+  @Response(500, 'Service Error')
+  @Post()
+  public async createWork(@Body() body: Work.Update): Promise<boolean> {
+    try {
+      if (body.master_password === appConfig.masterPassword) {
+        await server.mongoDbService.insertManyWorks(body.works);
+  
+        return true;
+      } else {
+        this.setStatus(403);
+      }
+  
+      return false; 
+    } catch (error) {
+      return error;
     }
   }
 }
