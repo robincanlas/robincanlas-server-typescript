@@ -4,6 +4,8 @@ import {
   SuccessResponse,
   Response,
   Tags,
+  Put,
+  Body
 } from 'tsoa';
 import { BaseController } from './';
 import { server } from '..';
@@ -25,6 +27,25 @@ export class InformationController extends BaseController {
       throw {
         status: 500,
         message: 'error fetching information'
+      };
+    }
+  }
+
+  @SuccessResponse(201, 'Success')
+  @Response(400, 'Bad Request')
+  @Response(500, 'Service Error')
+  @Put('update/employmentStatus')
+  public async updateEmploymentStatus (
+    @Body() body: Information.UpdateEmploymentStatus
+  ): Promise<string> {
+    try {
+      await server.mongoDbService.updateEmploymentStatus(body); 
+      return 'Success'
+    } catch (error) {
+      console.warn('error updating information', error);
+      throw {
+        status: 500,
+        message: 'error updating information'
       };
     }
   }

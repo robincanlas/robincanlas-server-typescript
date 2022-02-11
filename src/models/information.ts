@@ -6,6 +6,11 @@ export namespace Information {
     phone: string;
     email: string;
   }
+
+  export interface UpdateEmploymentStatus {
+    email: string;
+    isEmployed: boolean;
+  }
 }
 
 export const InformationSchema = new Schema<Information.Get>({
