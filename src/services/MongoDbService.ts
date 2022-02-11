@@ -73,8 +73,12 @@ export class MongoDbService {
     return await ShoeModel.find({}, {_id: 0}).exec();
   }
 
-  public async getInformation(): Promise<Information.Get[]> {
-    return await InformationModel.find({}, {_id: 0}).exec();
+  public async getInformation(): Promise<Information.Get> {
+    const information: Information.Get[] = await InformationModel.find({}, {_id: 0}).exec();
+    if (information.length > 0) {
+      return information[0];
+    }
+    return null;
   }
 
   public async deleteAllPhotos(): Promise<boolean> {

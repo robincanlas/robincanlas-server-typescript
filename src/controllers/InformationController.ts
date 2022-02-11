@@ -17,7 +17,7 @@ export class InformationController extends BaseController {
   @Response(400, 'Bad Request')
   @Response(500, 'Service Error')
   @Get()
-  public async getInformation (): Promise<Information.Get[]> {
+  public async getInformation (): Promise<Information.Get> {
     try {
       return await server.mongoDbService.getInformation();      
     } catch (error) {
