@@ -10,6 +10,7 @@ export namespace Information {
   export interface UpdateEmploymentStatus {
     email: string;
     isEmployed: boolean;
+    master_password: string;
   }
 }
 

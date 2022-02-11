@@ -10,6 +10,7 @@ import {
 import { BaseController } from './';
 import { server } from '..';
 import { Information } from '../models';
+import { appConfig } from '../config/Environment';
 
 @Tags('Information service')
 @Route('information')
@@ -39,8 +40,12 @@ export class InformationController extends BaseController {
     @Body() body: Information.UpdateEmploymentStatus
   ): Promise<string> {
     try {
-      await server.mongoDbService.updateEmploymentStatus(body); 
-      return 'Success'
+      if (body.master_password === appConfig.masterPassword) { 
+        await server.mongoDbService.updateEmploymentStatus(body); 
+        return 'Success'
+      } else {
+        return 'Failed'
+      }
     } catch (error) {
       console.warn('error updating information', error);
       throw {
