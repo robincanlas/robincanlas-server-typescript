@@ -7,6 +7,7 @@ import { RegisterRoutes } from '../build/routes';
 import { allowedOrigins, SWAGGER } from '../constants';
 import { MongoDbService } from '../services/MongoDbService';
 import { appConfig } from './Environment';
+import { SecurityHandler } from './SecurityHandler';
 
 export class Server {
   public app: express.Express = express();
@@ -22,6 +23,7 @@ export class Server {
     this.app.use(cookieParser());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
+    this.app.use(SecurityHandler.handleData);
     RegisterRoutes(this.app);
 
     if (appConfig.swaggerEnable === SWAGGER.ENABLE) {
