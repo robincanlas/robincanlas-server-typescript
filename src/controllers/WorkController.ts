@@ -9,7 +9,7 @@ import {
   Body,
   Post,
   Hidden,
-  Patch,
+  Patch
 } from 'tsoa';
 import { BaseController } from './';
 import { server } from '..';
