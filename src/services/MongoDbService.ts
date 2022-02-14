@@ -64,6 +64,10 @@ export class MongoDbService {
     });
   }
 
+  public async updateWorkDescription(entity: Work.UpdateDescription): Promise<void> {
+    await WorkModel.updateOne({ 'id': entity.id }, { description: entity.description }).exec();
+  }
+
   public async getWorkByIndex(lessOrGreat: string, index: number, sortBy: number): Promise<Work.Get[]> {
     // tslint:disable-next-line: max-line-length
     return await WorkModel.find({ 'index': { [lessOrGreat]: index }, 'show': true }, { '_id': 0 }).sort({ 'index': sortBy }).limit(1).exec();

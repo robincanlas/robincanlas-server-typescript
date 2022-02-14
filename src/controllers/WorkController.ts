@@ -9,6 +9,7 @@ import {
   Body,
   Post,
   Hidden,
+  Patch,
 } from 'tsoa';
 import { BaseController } from './';
 import { server } from '..';
@@ -101,6 +102,27 @@ export class WorkController extends BaseController {
       return false; 
     } catch (error) {
       return error;
+    }
+  }
+
+  @SuccessResponse(201, 'Success')
+  @Response(400, 'Bad Request')
+  @Response(403, 'Forbidden')
+  @Response(500, 'Service Error')
+  @Patch('description')
+  public async updateWorkDescription(@Body() body: Work.UpdateDescription): Promise<string> {
+    try {
+      if (body.master_password === appConfig.masterPassword) {
+        await server.mongoDbService.updateWorkDescription(body);
+        return 'Success!';
+      } else {
+        this.setStatus(403);
+      }
+  
+      return 'Failed'; 
+    } catch (error) {
+      console.log(error);
+      return 'Failed';
     }
   }
 }

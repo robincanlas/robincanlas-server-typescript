@@ -29,6 +29,12 @@ export namespace Work {
     works: Work.Get[];
     master_password: string;
   }
+
+  export interface UpdateDescription {
+    id: string;
+    description: string;
+    master_password: string;
+  }
 }
 
 export const WorkSchema = new Schema<Work.Get>({
