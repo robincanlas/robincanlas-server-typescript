@@ -89,6 +89,10 @@ export class MongoDbService {
     await InformationModel.updateOne({ 'email': entity.email }, { isEmployed: entity.isEmployed }).exec();
   }
 
+  public async updatePhoneNumber(entity: Information.UpdatePhoneNumber): Promise<void> {
+    await InformationModel.updateOne({ 'email': entity.email }, { phone: entity.phone }).exec();
+  }
+
   public async deleteAllPhotos(): Promise<boolean> {
     return await PhotoModel.deleteMany({})
     .then(() => {

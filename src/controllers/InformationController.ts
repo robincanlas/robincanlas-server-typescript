@@ -42,9 +42,32 @@ export class InformationController extends BaseController {
     try {
       if (body.master_password === appConfig.masterPassword) { 
         await server.mongoDbService.updateEmploymentStatus(body); 
-        return 'Success'
+        return 'Success';
       } else {
-        return 'Failed'
+        return 'Failed';
+      }
+    } catch (error) {
+      console.warn('error updating information', error);
+      throw {
+        status: 500,
+        message: 'error updating information'
+      };
+    }
+  }
+
+  @SuccessResponse(201, 'Success')
+  @Response(400, 'Bad Request')
+  @Response(500, 'Service Error')
+  @Put('update/phoneNumber')
+  public async updatePhoneNumber (
+    @Body() body: Information.UpdatePhoneNumber
+  ): Promise<string> {
+    try {
+      if (body.master_password === appConfig.masterPassword) { 
+        await server.mongoDbService.updatePhoneNumber(body); 
+        return 'Success';
+      } else {
+        return 'Failed';
       }
     } catch (error) {
       console.warn('error updating information', error);

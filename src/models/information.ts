@@ -12,6 +12,12 @@ export namespace Information {
     isEmployed: boolean;
     master_password: string;
   }
+
+  export interface UpdatePhoneNumber {
+    email: string;
+    phone: string;
+    master_password: string;  
+  }
 }
 
 export const InformationSchema = new Schema<Information.Get>({
