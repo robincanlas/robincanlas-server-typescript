@@ -8,9 +8,9 @@ export class UsgsService {
   private static readonly feedSummary: string = '/earthquakes/feed/v1.0/summary/';
 
   public dictionary: {[key: string]: string} = {
-    bySignificantDay: 'significant_day.geojson',
-    bySignificantWeek: 'significant_week.geojson',
-    bySignificantMonth: 'significant_month.geojson',
+    significantByDay: 'significant_day.geojson',
+    significantByWeek: 'significant_week.geojson',
+    significantByMonth: 'significant_month.geojson',
     byAllDay: 'all_day.geojson',
     byAllWeek: 'all_week.geojson',
     byAllMonth: 'all_month.geojson',
