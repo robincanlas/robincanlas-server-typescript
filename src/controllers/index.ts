@@ -3,3 +3,4 @@ export * from './PhotoController';
 export * from './WorkController';
 export * from './InformationController';
 export * from './CountryController';
+export * from './EarthquakeController';

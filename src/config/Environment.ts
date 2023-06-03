@@ -23,5 +23,8 @@ export const appConfig = {
   positionStackApi: {
     host: process.env.POSITION_STACK_API,
     access_key: process.env.POSITION_STACK_API_ACCESS_KEY
+  },
+  usgsApi: {
+    host: process.env.USGS_API
   }
 };
