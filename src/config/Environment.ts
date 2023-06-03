@@ -26,5 +26,8 @@ export const appConfig = {
   },
   usgsApi: {
     host: process.env.USGS_API
+  },
+  diseaseShApi: {
+    host: process.env.DISEASE_SH_API
   }
 };
