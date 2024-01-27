@@ -85,7 +85,7 @@ export class MongoDbService {
     return null;
   }
 
-  public async updateEmploymentStatus(entity: Information.UpdateEmploymentStatus): Promise<void> {
+  public async updateEmploymentStatus(entity: Information.UpdateEmploymentStatusMongoose): Promise<void> {
     await InformationModel.updateOne({ 'email': entity.email }, { isEmployed: entity.isEmployed }).exec();
   }
 

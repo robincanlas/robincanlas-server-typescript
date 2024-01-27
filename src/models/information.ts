@@ -7,7 +7,13 @@ export namespace Information {
     email: string;
   }
 
-  export interface UpdateEmploymentStatus {
+  export interface UpdateEmploymentStatusRequest {
+    email: string;
+    isEmployed: string;
+    master_password: string;
+  }
+
+  export interface UpdateEmploymentStatusMongoose {
     email: string;
     isEmployed: boolean;
     master_password: string;

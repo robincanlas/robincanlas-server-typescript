@@ -37,11 +37,15 @@ export class InformationController extends BaseController {
   @Response(500, 'Service Error')
   @Put('update/employmentStatus')
   public async updateEmploymentStatus (
-    @Body() body: Information.UpdateEmploymentStatus
+    @Body() body: Information.UpdateEmploymentStatusRequest
   ): Promise<string> {
     try {
       if (body.master_password === appConfig.masterPassword) { 
-        await server.mongoDbService.updateEmploymentStatus(body); 
+        const newStatus: Information.UpdateEmploymentStatusMongoose = {
+          ...body,
+          isEmployed: +body.isEmployed < 1 ? false : true
+        }
+        await server.mongoDbService.updateEmploymentStatus(newStatus); 
         return 'Success';
       } else {
         return 'Failed';
