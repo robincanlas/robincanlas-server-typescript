@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { SortOrder } from 'mongoose';
 import { appConfig } from '../config/Environment';
 import { 
   Information,
@@ -68,7 +68,7 @@ export class MongoDbService {
     await WorkModel.updateOne({ 'id': entity.id }, { description: entity.description }).exec();
   }
 
-  public async getWorkByIndex(lessOrGreat: string, index: number, sortBy: number): Promise<Work.Get[]> {
+  public async getWorkByIndex(lessOrGreat: string, index: number, sortBy: SortOrder): Promise<Work.Get[]> {
     // tslint:disable-next-line: max-line-length
     return await WorkModel.find({ 'index': { [lessOrGreat]: index }, 'show': true }, { '_id': 0 }).sort({ 'index': sortBy }).limit(1).exec();
   }
@@ -85,7 +85,7 @@ export class MongoDbService {
     return null;
   }
 
-  public async updateEmploymentStatus(entity: Information.UpdateEmploymentStatus): Promise<void> {
+  public async updateEmploymentStatus(entity: Information.UpdateEmploymentStatusMongoose): Promise<void> {
     await InformationModel.updateOne({ 'email': entity.email }, { isEmployed: entity.isEmployed }).exec();
   }
 
