@@ -6,6 +6,7 @@ import * as swaggerDocument from '../build/swagger.json';
 import { RegisterRoutes } from '../build/routes';
 import { allowedOrigins, SWAGGER } from '../constants';
 import { MongoDbService } from '../services/MongoDbService';
+import { RedisService } from '../services/RedisService';
 import { appConfig } from './Environment';
 import { SecurityHandler } from './SecurityHandler';
 
@@ -13,6 +14,8 @@ export class Server {
   public app: express.Express = express();
   private readonly port: string = appConfig.port;
   public mongoDbService: MongoDbService = new MongoDbService();
+  public redisService: RedisService = new RedisService();
+
   constructor() {
     this.app.use(cors({
       credentials: true,
@@ -36,7 +39,9 @@ export class Server {
     process.on('unhandledRejection', this.criticalErrorHandler);
     const listen = this.app.listen(this.port, async () => {
       const dbConnection: string = await this.mongoDbService.connect();
-      console.log(dbConnection);
+      console.log("🚀 ~ Server ~ listen ~ dbConnection:", dbConnection)
+      const redisConnection: string = await this.redisService.connect();
+      console.log("🚀 ~ Server ~ listen ~ redisConnection:", redisConnection)
       console.log(`Listening on port ${this.port}`);
       console.log(`Environment ${appConfig.environment}`);
     });
