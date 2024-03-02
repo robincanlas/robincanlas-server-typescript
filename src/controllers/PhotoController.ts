@@ -25,8 +25,8 @@ export class PhotoController extends BaseController {
   @Response(500, 'Service Error')
   @Get()
   public async getPhotos(): Promise<Photo.Get[]> {
-    try {
-      return await server.mongoDbService.getPhotos();      
+    try { 
+      return await server.redisService.getOrSetCache('get-photos', server.mongoDbService.getPhotos);
     } catch (error) {
       console.warn('error fetching photos', error);
       throw {
@@ -42,7 +42,7 @@ export class PhotoController extends BaseController {
   @Get('flickr')
   public async getFlickrPhotos(): Promise<Photo.GetAllFlickr[]> {
     try {
-      const photos: Photo.GetAllFlickrApi[] = await this.flickrService.getPhotos();
+      const photos: Photo.GetAllFlickrApi[] = await server.redisService.getOrSetCache('get-flickr-photos', this.flickrService.getPhotos);
       if (photos) {
         return Flickr.constructFlickrPhotos(photos);
       } else {
@@ -66,7 +66,7 @@ export class PhotoController extends BaseController {
   @Get('cloudinary')
   public async getCloudinaryPhotos(): Promise<Photo.GetAllCloudinary[]> {
     try {
-      const photos: Photo.GetAllCloudinaryApi[] = await this.cloudinaryService.getPhotos();
+      const photos: Photo.GetAllCloudinaryApi[] = await server.redisService.getOrSetCache('get-cloudinary-photos', this.cloudinaryService.getPhotos);
       return Cloudinary.construct(photos);
     } catch (error) {
       console.warn('error fetching cloudinary photos', error);

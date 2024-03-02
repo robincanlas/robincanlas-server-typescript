@@ -26,7 +26,8 @@ export class WorkController extends BaseController {
   @Get()
   public async getWork(): Promise<Work.Get[]> {
     try {
-      const works: Work.Get[] = await server.mongoDbService.getWorks();
+      const works: Work.Get[] = await server.redisService.getOrSetCache('get-works', server.mongoDbService.getWorks);
+
       return works.sort((a, b) => b.index - a.index);
     } catch (error) {
       console.warn('error fetching work', error);
