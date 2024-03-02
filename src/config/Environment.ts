@@ -29,5 +29,8 @@ export const appConfig = {
   },
   diseaseShApi: {
     host: process.env.DISEASE_SH_API
+  },
+  redis: {
+    host: process.env.REDIS
   }
 };

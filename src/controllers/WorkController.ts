@@ -26,7 +26,8 @@ export class WorkController extends BaseController {
   @Get()
   public async getWork(): Promise<Work.Get[]> {
     try {
-      const works: Work.Get[] = await server.mongoDbService.getWorks();
+      const works: Work.Get[] = await server.redisService.getOrSetCache('get-works', server.mongoDbService.getWorks);
+
       return works.sort((a, b) => b.index - a.index);
     } catch (error) {
       console.warn('error fetching work', error);
@@ -43,7 +44,11 @@ export class WorkController extends BaseController {
   @Response(500, 'Service Error')
   @Get('{id}')
   public async getById(@Path() id: string): Promise<Work.GetByIndex | Work.Get> {
-    const current: Work.Get = await server.mongoDbService.getWorkById(id);
+    const current: Work.Get = await server.redisService.getOrSetCache(`get-work-${id}`, async () => {
+      const data = await server.mongoDbService.getWorkById(id)
+      return data;
+    });
+    
     if (current) {
       const [previous, next] = await Promise.all([
         server.mongoDbService.getWorkByIndex('$gt', current.index, 1),

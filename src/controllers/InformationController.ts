@@ -21,8 +21,9 @@ export class InformationController extends BaseController {
   @Response(500, 'Service Error')
   @Get()
   public async getInformation (): Promise<Information.Get> {
+    const redisKey: string = 'get-information';
     try {
-      return await server.mongoDbService.getInformation();      
+      return await server.redisService.getOrSetCache(redisKey, server.mongoDbService.getInformation)
     } catch (error) {
       console.warn('error fetching information', error);
       throw {
