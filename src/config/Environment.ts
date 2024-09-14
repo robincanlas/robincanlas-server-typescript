@@ -31,6 +31,7 @@ export const appConfig = {
     host: process.env.DISEASE_SH_API
   },
   redis: {
-    host: process.env.REDIS
+    host: process.env.REDIS,
+    off: process.env.TURN_OFF_REDIS === '1' ? true : false
   }
 };

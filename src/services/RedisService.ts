@@ -5,6 +5,7 @@ import { appConfig } from '../config/Environment';
 
 export class RedisService {
   private static readonly redisHost: string = appConfig.redis.host;
+  private static readonly redisOff: boolean = appConfig.redis.off;
   public defaultExpirationTime: number = 600;
   public redisClient: RedisClientConnection;
 
@@ -31,6 +32,7 @@ export class RedisService {
   
   public async getOrSetCache<T>(key: string, cb: () => T) {
     try {
+      if (RedisService.redisOff) return await cb();
       const cache = await this.redisClient.get(key);
       if (cache) {
         return JSON.parse(cache)
