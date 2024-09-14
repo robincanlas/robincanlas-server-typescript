@@ -1,5 +1,5 @@
 # build environment
-FROM node:13-alpine as build
+FROM node:20-alpine as build
 
 COPY . /app
 
@@ -11,18 +11,14 @@ RUN npm run build
 
 
 # production environment
-FROM node:13-alpine
+FROM node:20-alpine
 
-COPY --from=build /app/dist /app
-# COPY --from=build /app/src/swagger.json /app/swagger.json
-COPY --from=build /app/src/index.html /app/index.html
+COPY --from=build /app/dist /app/dist
 
-COPY package.json /app/
+COPY --from=build /app/node_modules /app/node_modules
 
 WORKDIR /app
 
-RUN npm install --silent
-
 EXPOSE 80
 
-ENTRYPOINT ["node", "/app/index.js"]
+CMD ["node", "dist/index.js"]

@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  server:
+    build: ./
+    image: robincanlas-server-typescript:dev
+    env_file: .env
+    ports:
+      - "7000:80"
+    restart: always

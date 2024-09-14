@@ -3,11 +3,7 @@ version: '3'
 services:
   server:
     build: ./
-    image: nodejs-server:prod
-    environment:
-      - "NODE_ENV=production"
-      - "SERVER_PORT=7000"
-      - "SWAGGER_ENABLE=1"
+    image: robincanlas-server-typescript:prod
     ports:
-      - "7000:7000"
+      - "80:80"
     restart: always
