@@ -52,7 +52,7 @@ export class PhotoController extends BaseController {
         };
       }
     } catch (error) {
-      console.warn('error fetching flickr photos', error);
+      console.warn('error fetching flickr photos', error.message);
       throw {
         status: 500,
         message: 'error fetching flickr photos'
