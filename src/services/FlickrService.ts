@@ -6,12 +6,11 @@ export class FlickrService {
   private static readonly host: string = appConfig.flickerApi.host;
 
   public async getPhotos(): Promise<Photo.GetAllFlickrApi[]> {
-    return await axios.get(FlickrService.host)
-    .then(response => {
-      return response.data.photos.photo;
-    })
+    return await fetch(FlickrService.host)
+    .then(response => response.json())
+    .then(data => data.photos.photo)
     .catch(error => {
-      console.warn(error);
+      console.error(error);
       return null;
     });
   }
