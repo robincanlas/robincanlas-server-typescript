@@ -36,7 +36,7 @@ export class MongoDbService {
 
   public async getWorks(): Promise<Work.Get[]> {
     return await WorkModel
-    .find({ 'show': true }, { '_id': 0 })
+    .find({ 'show': true }, { '_id': 0, '__v': 0 })
     .sort({ 'index': 1 });
   }
 
@@ -105,6 +105,16 @@ export class MongoDbService {
 
   public async insertManyPhotos(photos: Photo.GetAllFlickr[]): Promise<boolean> {
     return await PhotoModel.insertMany(photos)
+    .then(() => {
+      return true;
+    }).catch(error => {
+      console.warn(error);
+      return false;
+    });
+  }
+
+  public async insertWork(work: Work.Get): Promise<boolean> {
+    return await WorkModel.create(work)
     .then(() => {
       return true;
     }).catch(error => {

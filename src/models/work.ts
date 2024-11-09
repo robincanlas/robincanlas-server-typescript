@@ -30,6 +30,11 @@ export namespace Work {
     master_password: string;
   }
 
+  export interface Create {
+    work: Omit<Work.Get, "index">;
+    master_password: string;
+  }
+
   export interface UpdateDescription {
     id: string;
     description: string;
