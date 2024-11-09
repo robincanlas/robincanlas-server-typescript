@@ -94,10 +94,13 @@ export class WorkController extends BaseController {
   @Response(403, 'Forbidden')
   @Response(500, 'Service Error')
   @Post()
-  public async createWork(@Body() body: Work.Update): Promise<boolean> {
+  public async createWork(@Body() body: Work.Create): Promise<boolean> {
     try {
       if (body.master_password === appConfig.masterPassword) {
-        await server.mongoDbService.insertManyWorks(body.works);
+        const works = await server.mongoDbService.getWorks();
+        const newIndex = works.length + 1;
+        const work: Work.Get = {...body.work, index: newIndex};
+        await server.mongoDbService.insertWork(work);
   
         return true;
       } else {

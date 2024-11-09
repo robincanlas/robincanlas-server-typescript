@@ -30,9 +30,12 @@ export class SecurityHandler {
         if (isHtml.test(req.body[itemsFromBodyIndex])) {
           return SecurityHandler.illegalCharactersDetected(res);
         }
-  
-        req.body[itemsFromBodyIndex] = validator.trim(req.body[itemsFromBodyIndex]);
-        req.body[itemsFromBodyIndex] = validator.escape(req.body[itemsFromBodyIndex]); 
+        
+        if (typeof req.body[itemsFromBodyIndex] === 'string') {
+          req.body[itemsFromBodyIndex] = validator.trim(req.body[itemsFromBodyIndex]);
+          req.body[itemsFromBodyIndex] = validator.escape(req.body[itemsFromBodyIndex]); 
+        }
+
       }
     }
 
