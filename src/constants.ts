@@ -4,6 +4,8 @@ export enum SWAGGER {
 }
 
 export const allowedOrigins: string[] = [
+  'http://demo.kristofferrobincanlas.com',
+  'https://demo.kristofferrobincanlas.com',
   'http://kristofferrobincanlas.github.io',
   'https://kristofferrobincanlas.github.io',
   'http://robincanlas.github.io',
