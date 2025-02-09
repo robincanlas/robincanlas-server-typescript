@@ -38,15 +38,13 @@ export class InformationController extends BaseController {
   @Response(500, 'Service Error')
   @Put('update/employmentStatus')
   public async updateEmploymentStatus (
-    @Body() body: Information.UpdateEmploymentStatusRequest
+    @Body() body: Pick<Information.Update, 'master_password' | 'isEmployed'>
   ): Promise<string> {
     try {
       if (body.master_password === appConfig.masterPassword) { 
-        const newStatus: Information.UpdateEmploymentStatusMongoose = {
-          ...body,
-          isEmployed: +body.isEmployed < 1 ? false : true
-        }
-        await server.mongoDbService.updateEmploymentStatus(newStatus); 
+        await server.mongoDbService.updateEmploymentStatus({
+          isEmployed: body.isEmployed
+        });
         return 'Success';
       } else {
         return 'Failed';
@@ -65,11 +63,13 @@ export class InformationController extends BaseController {
   @Response(500, 'Service Error')
   @Put('update/phoneNumber')
   public async updatePhoneNumber (
-    @Body() body: Information.UpdatePhoneNumber
+    @Body() body: Pick<Information.Update, 'master_password' | 'phone'>
   ): Promise<string> {
     try {
       if (body.master_password === appConfig.masterPassword) { 
-        await server.mongoDbService.updatePhoneNumber(body); 
+        await server.mongoDbService.updatePhoneNumber({
+          phone: body.phone
+        }); 
         return 'Success';
       } else {
         return 'Failed';
@@ -86,14 +86,39 @@ export class InformationController extends BaseController {
   @SuccessResponse(201, 'Success')
   @Response(400, 'Bad Request')
   @Response(500, 'Service Error')
-  @Put('update/phoneNumber')
+  @Put('update/freelanceStatus')
   public async updateFreelanceStatus (
-    @Body() body: Information.UpdateFreelanceStatus
+    @Body() body: Pick<Information.Update, 'master_password' | 'availableForFreelance'>
   ): Promise<string> {
     try {
       if (body.master_password === appConfig.masterPassword) { 
         await server.mongoDbService.updateFreelanceStatus({
           availableForFreelance: body.availableForFreelance
+        }); 
+        return 'Success';
+      } else {
+        return 'Failed';
+      }
+    } catch (error) {
+      console.warn('error updating information', error);
+      throw {
+        status: 500,
+        message: 'error updating information'
+      };
+    }
+  }
+
+  @SuccessResponse(201, 'Success')
+  @Response(400, 'Bad Request')
+  @Response(500, 'Service Error')
+  @Put('update/email')
+  public async updateEmail (
+    @Body() body: Pick<Information.Update, 'master_password' | 'email'>
+  ): Promise<string> {
+    try {
+      if (body.master_password === appConfig.masterPassword) { 
+        await server.mongoDbService.updateEmail({
+          email: body.email
         }); 
         return 'Success';
       } else {

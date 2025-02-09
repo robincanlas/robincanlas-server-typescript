@@ -8,31 +8,12 @@ export namespace Information {
     availableForFreelance: boolean;
   }
 
-  export interface UpdateEmploymentStatusRequest {
-    isEmployed: string;
+  export interface Update {
     master_password: string;
-  }
-
-  export interface UpdateEmploymentStatusMongoose {
+    email: string;
+    availableForFreelance: boolean;
     isEmployed: boolean;
-    master_password: string;
-  }
-
-  export interface UpdatePhoneNumber {
-    email: string;
     phone: string;
-    master_password: string;  
-    availableForFreelance: string;
-  }
-
-  export interface UpdateFreelanceStatus {
-    master_password: string;
-    availableForFreelance: string;
-  }
-
-  export interface UpdateEmail {
-    master_password: string;
-    email: string;
   }
 }
 
