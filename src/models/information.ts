@@ -5,16 +5,15 @@ export namespace Information {
     isEmployed: boolean;
     phone: string;
     email: string;
+    availableForFreelance: boolean;
   }
 
   export interface UpdateEmploymentStatusRequest {
-    email: string;
     isEmployed: string;
     master_password: string;
   }
 
   export interface UpdateEmploymentStatusMongoose {
-    email: string;
     isEmployed: boolean;
     master_password: string;
   }
@@ -23,13 +22,25 @@ export namespace Information {
     email: string;
     phone: string;
     master_password: string;  
+    availableForFreelance: string;
+  }
+
+  export interface UpdateFreelanceStatus {
+    master_password: string;
+    availableForFreelance: string;
+  }
+
+  export interface UpdateEmail {
+    master_password: string;
+    email: string;
   }
 }
 
 export const InformationSchema = new Schema<Information.Get>({
   isEmployed: Boolean,
   phone: String,
-  email: String
+  email: String,
+  availableForFreelance: Boolean
 }, {
   collection: 'informations'
 });

@@ -85,12 +85,20 @@ export class MongoDbService {
     return null;
   }
 
-  public async updateEmploymentStatus(entity: Information.UpdateEmploymentStatusMongoose): Promise<void> {
-    await InformationModel.updateOne({ 'email': entity.email }, { isEmployed: entity.isEmployed }).exec();
+  public async updateEmploymentStatus(entity: Pick<Information.UpdateEmploymentStatusMongoose, 'isEmployed'>): Promise<void> {
+    await InformationModel.updateOne({ isEmployed: entity.isEmployed }).exec();
   }
 
-  public async updatePhoneNumber(entity: Information.UpdatePhoneNumber): Promise<void> {
-    await InformationModel.updateOne({ 'email': entity.email }, { phone: entity.phone }).exec();
+  public async updatePhoneNumber(entity: Pick<Information.UpdatePhoneNumber, 'phone'>): Promise<void> {
+    await InformationModel.updateOne({ phone: entity.phone }).exec();
+  }
+
+  public async updateFreelanceStatus(entity: Pick<Information.UpdatePhoneNumber , 'availableForFreelance'>): Promise<void> {
+    await InformationModel.updateOne({ availableForFreelance: entity.availableForFreelance }).exec();
+  }
+
+  public async updateEmail(entity: Pick<Information.UpdateEmail , 'email'>): Promise<void> {
+    await InformationModel.updateOne({ email: entity.email }).exec();
   }
 
   public async deleteAllPhotos(): Promise<boolean> {

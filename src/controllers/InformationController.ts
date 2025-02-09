@@ -82,4 +82,29 @@ export class InformationController extends BaseController {
       };
     }
   }
+
+  @SuccessResponse(201, 'Success')
+  @Response(400, 'Bad Request')
+  @Response(500, 'Service Error')
+  @Put('update/phoneNumber')
+  public async updateFreelanceStatus (
+    @Body() body: Information.UpdateFreelanceStatus
+  ): Promise<string> {
+    try {
+      if (body.master_password === appConfig.masterPassword) { 
+        await server.mongoDbService.updateFreelanceStatus({
+          availableForFreelance: body.availableForFreelance
+        }); 
+        return 'Success';
+      } else {
+        return 'Failed';
+      }
+    } catch (error) {
+      console.warn('error updating information', error);
+      throw {
+        status: 500,
+        message: 'error updating information'
+      };
+    }
+  }
 }
